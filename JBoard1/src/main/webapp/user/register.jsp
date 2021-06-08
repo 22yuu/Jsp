@@ -13,16 +13,13 @@
     <script defer type="text/javascript" src="/JBoard1/js/checkPass.js"></script>
     <script defer type="text/javascript" src="/JBoard1/js/checkName.js"></script>
     <script defer type="text/javascript" src="/JBoard1/js/zipcode.js"></script>
-    
+    <script defer type="text/javascript" src="/JBoard1/js/validation.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
-	   
-	</script>
 </head>
 <body>
     <div id="wrapper">
         <section id="user" class="register">
-            <form action="/JBoard1/proc/register.jsp" method="POST">
+            <form id="regForm" action="/JBoard1/proc/register.jsp" method="POST">
                 <table border="1">
                     <caption>사이트 이용정보 입력</caption>
                     <tr>

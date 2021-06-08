@@ -16,7 +16,7 @@ $(function(){
 					isPassOk = true;
     			} else {
     				$('.resultPass').css('color', 'red').text('비밀번호가 일치하지 않습니다.');
-					isPassOk = true;
+					isPassOk = false;
     			}
     		});
     	});
