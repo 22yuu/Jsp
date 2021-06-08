@@ -7,9 +7,9 @@
 <%
 	
 	//DB 정보
-	String host = "jdbc:mysql://54.180.160.240:3306/chhak2021";
-	String user = "chhak2021";
-	String pass = "1234";
+	String host = "jdbc:mysql://15.164.100.88:3306/mydb";
+	String user = "bigdata";
+	String pass = "bigdata";
 	
 	TermsBean tb = new TermsBean();
 	try{

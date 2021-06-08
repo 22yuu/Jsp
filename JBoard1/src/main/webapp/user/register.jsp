@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="/JBoard1/css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/JBoard1/js/checkUid.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -16,7 +18,7 @@
                         <td>아이디</td>
                         <td>
                             <input type="text" name="uid" placeholder="아이디 입력"/>
-                            <span class="resultId"></span>
+                            <span class="resultId">사용 가능한 아이디입니다.</span>
                         </td>
                     </tr>
                     <tr>

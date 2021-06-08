@@ -35,7 +35,7 @@
 
 		String sql  = "INSERT INTO `JBOARD_MEMBER` SET ";
 			   sql += "`uid`='"+uid+"',";
-			   sql += "`pass`='"+pwd+"',";
+			   sql += "`pass`=PASSWORD('"+pwd+"'),";
 			   sql += "`name`='"+name+"',";
 			   sql += "`nick`='"+nick+"',";
 			   sql += "`email`='"+email+"',";
