@@ -64,11 +64,11 @@
 	// 세션 처리
 	if(mb != null) {
 		// 회원일 경우
-		session.setAttribute("sessmember", mb);
+		session.setAttribute("sessMember", mb);
 		response.sendRedirect("/JBoard1/list.jsp");
 		
 	} else {
 		// 회원이 아닐 경우
-		response.sendRedirect("/JBoard1/login.jsp?success=0");
+		response.sendRedirect("/JBoard1/user/login.jsp?success=100");
 	}
 %>

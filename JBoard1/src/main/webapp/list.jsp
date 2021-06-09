@@ -1,4 +1,15 @@
+<%@page import="kr.co.jboard1.bean.MemberBean"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	// 세션 사용정보 가져오기
+	MemberBean mb = (MemberBean)session.getAttribute("sessMember");
+
+	// 로그인을 하지 않고 List 페이지를 요청할 경우 - 로그인 실패 코드 : 101
+	if( mb == null ){
+		response.sendRedirect("/JBoard1/user/login.jsp?success=101");
+		return;
+	}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +23,8 @@
             <h3>글목록</h3>
             <article>
                 <p>
-                    홍길동님 반갑습니다.
-                    <a href="/JBoard1/user/login.jsp" class="logout">[로그아웃]</a>
+                    <%= mb.getNick() %>님 반갑습니다.
+                    <a href="/JBoard1/user/proc/logout.jsp" class="logout">[로그아웃]</a>
                 </p>
                 <table border="0">
                     <tr>

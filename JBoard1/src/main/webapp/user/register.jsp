@@ -19,7 +19,7 @@
 <body>
     <div id="wrapper">
         <section id="user" class="register">
-            <form id="regForm" action="/JBoard1/proc/register.jsp" method="POST">
+            <form id="regForm" action="/JBoard1/user/proc/register.jsp" method="POST">
                 <table border="1">
                     <caption>사이트 이용정보 입력</caption>
                     <tr>
