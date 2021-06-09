@@ -1,3 +1,4 @@
+<%@page import="kr.co.jboard1.db.DBConfig"%>
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -10,19 +11,12 @@
 	String nick = request.getParameter("nick");
 	System.out.print(nick);
 	
-	//DB 정보
-	String host = "jdbc:mysql://15.164.100.88:3306/mydb";
-	String user = "bigdata";
-	String pass = "bigdata";
 	int count = -1; // -1이 출력됐다는 것은 디비 연결이 안됐다는 것
 
 	try {
-	// 1단계
-	Class.forName("com.mysql.jdbc.Driver");
-	
-	// 2단계
-	Connection conn = DriverManager.getConnection(host, user, pass);
-	
+	// 1, 2 단계
+	Connection conn = DBConfig.getInstance().getConnection();
+
 	// 3단계
 	Statement stmt = conn.createStatement();
 	

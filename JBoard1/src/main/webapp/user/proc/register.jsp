@@ -1,3 +1,4 @@
+<%@page import="kr.co.jboard1.db.DBConfig"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -7,10 +8,7 @@
 	
 	request.setCharacterEncoding("utf-8");
 
-	//DB 정보
-	String host = "jdbc:mysql://15.164.100.88:3306/mydb";
-	String user = "bigdata";
-	String pass = "bigdata";
+
 
 	String uid   = request.getParameter("uid");
 	String pwd   = request.getParameter("pass1");
@@ -24,12 +22,8 @@
 	String regip  = request.getRemoteAddr(); // 클라이언트의 아이피를 가져옴
 
 	try {
-		
-		
-		
-		Class.forName("com.mysql.jdbc.Driver");
-		
-		Connection conn = DriverManager.getConnection(host, user, pass);
+		// 1, 2 단계
+		Connection conn = DBConfig.getInstance().getConnection();
 
 		Statement stmt = conn.createStatement();
 
