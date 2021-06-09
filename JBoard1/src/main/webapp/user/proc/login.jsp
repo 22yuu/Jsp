@@ -1,3 +1,5 @@
+<%@page import="kr.co.jboard1.db.Sql"%>
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="kr.co.jboard1.db.DBConfig"%>
 <%@page import="kr.co.jboard1.bean.MemberBean"%>
 <%@page import="java.sql.ResultSet"%>
@@ -22,11 +24,12 @@
 	Connection conn = DBConfig.getInstance().getConnection();
 	
 	// 3단계
-	Statement stmt = conn.createStatement();
-	
+	PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_MEMBER);
+	psmt.setString(1, uid);
+	psmt.setString(2, pwd);
+
 	// 4단계
-	String sql = "SELECT * FROM `JBOARD_MEMBER` WHERE `uid`='"+uid+"' AND `pass`=PASSWORD('"+pwd+"');";
-	ResultSet rs = stmt.executeQuery(sql);
+	ResultSet rs = psmt.executeQuery();
 	
 	// 5단계
 	if(rs.next()) {

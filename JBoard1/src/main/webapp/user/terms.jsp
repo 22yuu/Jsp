@@ -1,3 +1,4 @@
+<%@page import="kr.co.jboard1.db.Sql"%>
 <%@page import="kr.co.jboard1.db.DBConfig"%>
 <%@page import="kr.co.jboard1.bean.TermsBean"%>
 <%@page import="java.sql.ResultSet"%>
@@ -15,8 +16,7 @@
 		// 3단계
 		Statement stmt = conn.createStatement();
 		// 4단계
-		String sql = "SELECT * FROM `JBOARD_TERMS`;";
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery(Sql.SELECT_TERMS);
 		// 5단계
 		if(rs.next()){
 			tb.setTerms(rs.getString(1));
