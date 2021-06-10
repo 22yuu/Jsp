@@ -1,3 +1,9 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="kr.co.jboard1.db.Sql"%>
+<%@page import="java.io.File"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="kr.co.jboard1.bean.MemberBean"%>
@@ -15,35 +21,76 @@
 	MultipartRequest mRequest = new MultipartRequest(request, path, maxSize, "UTF-8", 
 			new DefaultFileRenamePolicy());
 	
-	
-	
-	
-
 	String title	= mRequest.getParameter("title");
 	String content  = mRequest.getParameter("content");
+	String fname = mRequest.getFilesystemName("fname");
 	
 	// IP 주소는 세션에 저장된 주소를 가져오는게 아니라, 유동적으로 가져와야 함 왜? 사용자가 피시방 혹은 다른 네트워크 환경에서 실행할 수 있기 때문
 	String regip = request.getRemoteAddr();
 	
 	MemberBean mb = (MemberBean)session.getAttribute("sessMember");
-
+	String uid = mb.getUid();
+	
+	int seq = 0;
+	
 	try{
 		// 1, 2 단계
 		Connection conn = DBConfig.getInstance().getConnection();
 		
 		// 3단계
-		String sql  = "INSERT INTO `JBOARD_ARTICLE` SET ";
-			   sql += "`title`=?,";
-			   sql += "`content`=?,";
-			   sql += "`uid`=?,";
-			   sql += "`regip`=?,";
-			   sql += "`rdate`=NOW();";
-			   
-		PreparedStatement psmt = conn.prepareStatement(sql);
+		Statement stmt = conn.createStatement();
+		
+		PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_ARTICLE);
 		psmt.setString(1, title);
 		psmt.setString(2, content);
-		psmt.setString(3, mb.getUid());
-		psmt.setString(4, regip);
+		psmt.setInt(3, fname == null ? 0 : 1);
+		psmt.setString(4, uid);
+		psmt.setString(5, regip);
+		
+		// 4단계
+		psmt.executeUpdate();
+		ResultSet rs = stmt.executeQuery(Sql.SELECT_MAX_SEQ);
+		
+		// 5단계
+
+		if(rs.next()) {
+			seq = rs.getInt(1);
+		}
+		
+		// 6단계
+		conn.close();
+		
+	} catch(Exception e) {
+		e.printStackTrace();
+	}
+	
+	if(fname != null){		
+		// 고유한 파일 이름 생성하기
+		int i = fname.lastIndexOf('.');
+		String ext = fname.substring(i);
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss_");
+		String now = sdf.format(new Date());
+		String newName = now + uid + ext; // date + 사용자 아이디 + 확장자
+		
+		// 파일명 수정 스트림 작업
+		File oriFile = new File(path+"/"+fname);
+		File newFile = new File(path+"/"+newName);
+		oriFile.renameTo(newFile);
+		
+		// 파일 테이블 INSERT 작업
+		
+		// 1단계
+		Connection conn = DBConfig.getInstance().getConnection();
+		
+		// 2단계
+		
+		// 3단계
+		PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_FILE);
+		psmt.setInt(1, seq);
+		psmt.setString(2, fname);
+		psmt.setString(3, newName);
 		
 		// 4단계
 		psmt.executeUpdate();
@@ -51,10 +98,7 @@
 		// 5단계
 		
 		// 6단계
-		conn.close();
 		
-	} catch(Exception e) {
-		e.printStackTrace();
 	}
 	
 	response.sendRedirect("/JBoard1/list.jsp");
