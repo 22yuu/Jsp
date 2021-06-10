@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <title>글쓰기</title>
     <link rel="stylesheet" href="/JBoard1/css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/JBoard1/js/checkFileSize.js" defer></script>
 </head>
 <body>
     <div id="wrapper">
         <section id="board" class="write">
             <h3>글쓰기</h3>
             <article>
-                <form action="/JBoard1/proc/write.jsp" method="post" enctype="multipart/form-data">
+                <form name="frm" action="/JBoard1/proc/write.jsp" method="post" enctype="multipart/form-data">
                     <table>
                         <tr>
                             <td>제목</td>
@@ -25,12 +27,12 @@
                         </tr>
                         <tr>
                             <td>첨부</td>
-                            <td><input type="file" name="fname"/></td>
+                            <td><input type="file" name="fname" onChange="fileSizeCheck(frm.fname)"/></td>
                         </tr>
                     </table>
                     <div>
                         <a href="/JBoard1/list.jsp" class="btnCancel">취소</a>
-                        <input type="submit"  class="btnWrite" value="작성완료">
+                        <input type="submit"  class="btnWrite" value="작성완료" >
                     </div>
                 </form>
             </article>
