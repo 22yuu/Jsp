@@ -20,6 +20,36 @@ public class ArticleDao {
 		return instance;
 	}
 	
+	public int getLimitStart(int currentPage) {
+		return (currentPage - 1) * 10;
+	}
+	
+	public int getCurrentPage(String pg) {
+		int currentPage = 1;
+
+		//로그인해서 list에 들어올 때는 pg값을 가져오지 않기 때문에 null 값을 받아온다. 
+		if(pg != null) {
+			currentPage = Integer.parseInt(pg);
+		}
+		
+		return currentPage;
+	}
+	
+	public int getlastPageNum(int total) {
+		
+		int lastPageNum = 0;
+		
+		if(total % 10 == 0) {
+			lastPageNum = total / 10;
+		} else {
+			lastPageNum = total / 10 + 1;
+		}
+		
+		return lastPageNum;
+	}
+	
+	
+	
 	public int selectCountArticle() {
 
 		int total = 0;
@@ -52,7 +82,7 @@ public class ArticleDao {
 	public void insertArticle() {}
 	public void selectArticle() {}
 	
-	public List<ArticleBean> selectArticles() {
+	public List<ArticleBean> selectArticles(int start) {
 		List<ArticleBean> articles = new ArrayList<>();
 		
 		try {
@@ -61,6 +91,7 @@ public class ArticleDao {
 			
 			// 3단계
 			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_ARTICLES);
+			psmt.setInt(1, start);
 			
 			// 4단계
 			ResultSet rs = psmt.executeQuery();

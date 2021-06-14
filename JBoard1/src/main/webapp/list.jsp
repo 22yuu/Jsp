@@ -19,15 +19,22 @@
 		return;
 	}
 	
+	// 전송파라미터 수신
+	String pg = request.getParameter("pg");
+	
+	
+	
 	// DAO 객체 가져오기
 	ArticleDao dao = ArticleDao.getInstance();
 	
 	// 페이지 번호 계산하기
-	int total = dao.selectCountArticle();
-	
+	int total = dao.selectCountArticle(); // 전체 페이지 수 카운트해서 가져오기
+	int lastPageNum = dao.getlastPageNum(total); // 마지막 페이지 가져오기
+	int currentPage = dao.getCurrentPage(pg);
+	int start = dao.getLimitStart(currentPage);
 	
 	// 게시물 가져오기
-	List<ArticleBean> articles = dao.selectArticles();
+	List<ArticleBean> articles = dao.selectArticles(start);
 	
 %>
 <!DOCTYPE html>
@@ -69,9 +76,9 @@
             <!-- 페이지 네비게이션 -->
             <div class="paging">
                 <a href="#" class="prev">이전</a>
-                <a href="#" class="num current">1</a>                
-                <a href="#" class="num">2</a>                
-                <a href="#" class="num">3</a>                
+                <% for(int i=1; i<=lastPageNum;i++){ %>
+                	<a href="/JBoard1/list.jsp?pg=<%=i%>" class="num"><%= i %></a>
+               	<% } %>
                 <a href="#" class="next">다음</a>
             </div>
 
