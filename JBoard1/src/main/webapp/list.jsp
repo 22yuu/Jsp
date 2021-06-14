@@ -1,3 +1,4 @@
+<%@page import="kr.co.jboard1.dao.ArticleDao"%>
 <%@page import="kr.co.jboard1.bean.ArticleBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -18,51 +19,16 @@
 		return;
 	}
 	
+	// DAO 객체 가져오기
+	ArticleDao dao = ArticleDao.getInstance();
+	
 	// 페이지 번호 계산하기
-	try{
-		
-	}catch(Exception e) {
-		e.printStackTrace();
-	}
+	int total = dao.selectCountArticle();
+	
 	
 	// 게시물 가져오기
-	List<ArticleBean> articles = new ArrayList<>();
+	List<ArticleBean> articles = dao.selectArticles();
 	
-	try {
-		// 1, 2단계
-		Connection conn = DBConfig.getInstance().getConnection();
-		
-		// 3단계
-		PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_ARTICLES);
-		
-		// 4단계
-		ResultSet rs = psmt.executeQuery();
-		
-		// 5단계
-		while(rs.next()) {
-			ArticleBean article = new ArticleBean();
-			article.setSeq(rs.getInt(1));
-			article.setParent(rs.getInt(2));
-			article.setComment(rs.getInt(3));
-			article.setCate(rs.getString(4));
-			article.setTitle(rs.getString(5));
-			article.setContent(rs.getString(6));
-			article.setFile(rs.getInt(7));
-			article.setHit(rs.getInt(8));
-			article.setUid(rs.getString(9));
-			article.setRegip(rs.getString(10));
-			article.setRdate(rs.getString(11));
-			article.setNick(rs.getString(12));
-			
-			articles.add(article);
-		}
-		
-		// 6단계
-		conn.close();
-		
-	} catch(Exception e) {
-		e.printStackTrace();
-	}
 %>
 <!DOCTYPE html>
 <html lang="en">
