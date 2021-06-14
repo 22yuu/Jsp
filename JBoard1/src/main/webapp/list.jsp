@@ -32,6 +32,8 @@
 	int lastPageNum = dao.getlastPageNum(total); // 마지막 페이지 가져오기
 	int currentPage = dao.getCurrentPage(pg);
 	int start = dao.getLimitStart(currentPage);
+	int pageStartNum = dao.getPageStartNum(total, start);
+	int[] groups = dao.getPageGroup(currentPage, lastPageNum);
 	
 	// 게시물 가져오기
 	List<ArticleBean> articles = dao.selectArticles(start);
@@ -63,7 +65,7 @@
                     </tr>
                      <% for(ArticleBean article : articles){ %>
 	                    <tr>
-	                        <td><%= article.getSeq() %></td>
+	                        <td><%= pageStartNum-- %></td>
 	                        <td><a href="/JBoard1/view.jsp"><%= article.getTitle() %></a>&nbsp;[<%= article.getComment() %>]</td>
 	                        <td><%= article.getNick() %></td>
 	                        <td><%= article.getRdate().substring(2,10) %></td>
@@ -75,11 +77,15 @@
 
             <!-- 페이지 네비게이션 -->
             <div class="paging">
-                <a href="#" class="prev">이전</a>
-                <% for(int i=1; i<=lastPageNum;i++){ %>
-                	<a href="/JBoard1/list.jsp?pg=<%=i%>" class="num"><%= i %></a>
-               	<% } %>
-                <a href="#" class="next">다음</a>
+            	<% if(groups[0] > 1) { %>
+                	<a href="/JBoard1/list.jsp?pg=<%=(groups[0]-1)%>" class="prev">이전</a>
+                <% } %>
+                <% for(int i=groups[0]; i<=groups[1];i++){                %>
+                	<a href="/JBoard1/list.jsp?pg=<%=i%>" class="num <%= (currentPage == i) ? "current":"" %>"><%= i %></a>
+               	<% } // for end %>
+               	<% if(groups[1] < lastPageNum) { %>
+                <a href="/JBoard1/list.jsp?pg=<%=(groups[1]+1)%>" class="next">다음</a>
+                <% } %>
             </div>
 
             <!-- 글쓰기 버튼 -->
