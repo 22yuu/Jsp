@@ -37,8 +37,8 @@
                 <tr>
                     <td>첨부파일</td>
                     <td>
-                        <a href="#"><%=article.getFb().getOriName() %></a>
-                        <span><%=article.getFb().getDownload() %></span>
+                        <a href="/JBoard1/proc/download.jsp?seq=<%=article.getFb().getSeq()%>"><%=article.getFb().getOriName() %></a>
+                        <span><%=article.getFb().getDownload() %>회 다운로드</span>
                     </td>
                 </tr>
                 <% } %>
