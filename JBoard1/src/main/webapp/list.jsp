@@ -32,7 +32,7 @@
 	int lastPageNum = dao.getlastPageNum(total); // 마지막 페이지 가져오기
 	int currentPage = dao.getCurrentPage(pg);
 	int start = dao.getLimitStart(currentPage);
-	int pageStartNum = dao.getPageStartNum(total, start);
+	int pageStartNum = dao.getPageStartNum(total, start); // 목록 번호를 seq값이 아닌 list안에 저장된 값으로 출력해주기 위함
 	int[] groups = dao.getPageGroup(currentPage, lastPageNum);
 	
 	// 게시물 가져오기
@@ -65,8 +65,8 @@
                     </tr>
                      <% for(ArticleBean article : articles){ %>
 	                    <tr>
-	                        <td><%= pageStartNum-- %></td>
-	                        <td><a href="/JBoard1/view.jsp"><%= article.getTitle() %></a>&nbsp;[<%= article.getComment() %>]</td>
+	                        <td><%= pageStartNum-- %></td> 
+	                        <td><a href="/JBoard1/view.jsp?seq=<%=article.getSeq()%>"><%= article.getTitle() %></a>&nbsp;[<%= article.getComment() %>]</td>
 	                        <td><%= article.getNick() %></td>
 	                        <td><%= article.getRdate().substring(2,10) %></td>
 	                        <td><%= article.getHit() %></td>
