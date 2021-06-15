@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.jboard1.bean.ArticleBean;
+import kr.co.jboard1.bean.FileBean;
 import kr.co.jboard1.db.DBConfig;
 import kr.co.jboard1.db.Sql;
 
@@ -102,6 +103,7 @@ public class ArticleDao {
 	public ArticleBean selectArticle(String seq) {
 		
 		ArticleBean article = new ArticleBean();
+		FileBean fb = new FileBean();
 		
 		try {
 			
@@ -128,6 +130,16 @@ public class ArticleDao {
 				article.setUid(rs.getString(9));
 				article.setRegip(rs.getString(10));
 				article.setRdate(rs.getString(11));
+				
+				// 추가필드
+				fb.setSeq(rs.getInt(12));
+				fb.setParent(rs.getInt(13));
+				fb.setOriName(rs.getString(14));
+				fb.setNewName(rs.getString(15));
+				fb.setDownload(rs.getInt(16));
+				fb.setRdate(rs.getString(17));
+				
+				article.setFb(fb);
 			}
 			// 6 단계
 			conn.close();
@@ -184,21 +196,21 @@ public class ArticleDao {
 	public void updateArticleHit(String seq) {
 		try {
 					
-					// 1,2 단계
-					Connection conn = DBConfig.getInstance().getConnection();
-					
-					// 3 단계
-					PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE_HIT);
-					psmt.setString(1, seq);
-					
-					// 4 단계
-					psmt.executeUpdate();
-					
-					// 6 단계
-					conn.close();
-				} catch(Exception e){
-					e.printStackTrace();
-				}
+			// 1,2 단계
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			// 3 단계
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE_HIT);
+			psmt.setString(1, seq);
+			
+			// 4 단계
+			psmt.executeUpdate();
+			
+			// 6 단계
+			conn.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public void deleteArticle() {}
