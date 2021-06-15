@@ -50,5 +50,8 @@ public class Sql {
 												+ "`oriName`=?,"
 												+ "`newName`=?,"
 												+ "`rdate`=NOW();";
-	
+
+	public static final String UPDATE_ARTICLE_HIT = "UPDATE `JBOARD_ARTICLE` "
+												+ "SET `hit` = `hit` + 1 "
+												+ "WHERE `seq`=?";
 }
