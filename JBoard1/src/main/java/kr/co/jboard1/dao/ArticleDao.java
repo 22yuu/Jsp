@@ -322,6 +322,46 @@ public class ArticleDao {
 		}
 	}
 	
+	public void updateArticleCommentCountUp(String seq) {
+		try {
+			
+			// 1,2 단계
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			// 3 단계
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE_COMMENT_COUNT_UP);
+			psmt.setString(1, seq);
+			
+			// 4 단계
+			psmt.executeUpdate();
+			
+			// 6 단계
+			conn.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateArticleCommentCountDown(String seq) {
+		try {
+			
+			// 1,2 단계
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			// 3 단계
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE_COMMENT_COUNT_DOWN);
+			psmt.setString(1, seq);
+			
+			// 4 단계
+			psmt.executeUpdate();
+			
+			// 6 단계
+			conn.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	public void updateFileDownload(String seq) {
 		
 		try {

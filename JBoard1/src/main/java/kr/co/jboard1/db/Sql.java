@@ -72,6 +72,14 @@ public class Sql {
 												+ "SET `hit` = `hit` + 1 "
 												+ "WHERE `seq`=?";
 	
+	public static final String UPDATE_ARTICLE_COMMENT_COUNT_UP = "UPDATE `JBOARD_ARTICLE` "
+																	+ "SET `comment` = `comment` + 1 "
+																	+ "WHERE `seq`=?";
+	
+	public static final String UPDATE_ARTICLE_COMMENT_COUNT_DOWN = "UPDATE `JBOARD_ARTICLE` "
+			+ "SET `comment` = `comment` - 1 "
+			+ "WHERE `seq`=?";
+	
 	public static final String UPDATE_FILE_DOWNLOAD = "UPDATE `JBOARD_FILE` "
 														+ "SET `download` = `download` + 1 "
 														+ "WHERE `seq`=?";

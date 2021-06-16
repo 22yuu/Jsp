@@ -9,6 +9,7 @@
 	ArticleDao dao = ArticleDao.getInstance();
 	
 	dao.deleteComment(seq);
+	dao.updateArticleCommentCountDown(parent);
 	
 	// 리다이렉트
 	response.sendRedirect("/JBoard1/view.jsp?seq="+parent);

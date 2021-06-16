@@ -20,6 +20,7 @@
 	
 	
 	dao.insertComment(ab);
+	dao.updateArticleCommentCountUp(parent);
 	
 	// 리다이렉트
 	response.sendRedirect("/JBoard1/view.jsp?seq="+parent);

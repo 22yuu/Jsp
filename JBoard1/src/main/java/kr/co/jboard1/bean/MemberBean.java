@@ -87,7 +87,4 @@ public class MemberBean {
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
 	}
-	
-	
-	
 }
