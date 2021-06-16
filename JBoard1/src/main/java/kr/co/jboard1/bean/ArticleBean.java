@@ -42,6 +42,10 @@ public class ArticleBean {
 		this.parent = parent;
 	}
 
+	public void setParent(String parent) {
+		this.parent = Integer.parseInt(parent);
+	}
+	
 	public int getComment() {
 		return comment;
 	}
@@ -49,6 +53,7 @@ public class ArticleBean {
 	public void setComment(int comment) {
 		this.comment = comment;
 	}
+	
 
 	public String getCate() {
 		return cate;

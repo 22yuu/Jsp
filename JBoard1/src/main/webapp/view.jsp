@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="kr.co.jboard1.bean.MemberBean"%>
 <%@page import="kr.co.jboard1.bean.ArticleBean"%>
 <%@page import="kr.co.jboard1.dao.ArticleDao"%>
 <%@page import="java.sql.Connection"%>
@@ -8,6 +10,15 @@
 	request.setCharacterEncoding("utf-8");
 	String seq = request.getParameter("seq");
 	
+	// 세션 사용정보 가져오기
+	MemberBean mb = (MemberBean)session.getAttribute("sessMember");
+
+	// 로그인을 하지 않고 List 페이지를 요청할 경우 - 로그인 실패 코드 : 101
+	if( mb == null ){
+		response.sendRedirect("/JBoard1/user/login.jsp?success=101");
+		return;
+	}
+		
 	// Dao 객체 가져오기
 	ArticleDao dao = ArticleDao.getInstance();
 	
@@ -16,6 +27,10 @@
 	
 	// 해당 글 조회수 업데이트
 	dao.updateArticleHit(seq);
+	
+	// 댓글 가져오기
+	List<ArticleBean> comments = dao.selectComments(seq);
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,28 +73,36 @@
             <!-- 댓글리스트 -->
             <section class="commentList">
                 <h3>댓글목록</h3>
-                <article class="comment">
-                    <span>
-                        <span>길동이</span>
-                        <span>20-05-13</span>
-                    </span>
-                    <textarea name="comment" readonly>댓글 샘플입니다.</textarea>
-                    <div>
-                        <a href="#">삭제</a>
-                        <a href="/JBoard1/modify.jsp">수정</a>
-                        <a href="/JBoard1/list.jsp">목록</a>
-                    </div>
-                </article>
-                <p class="empty">
-                    등록된 댓글이 없습니다.
-                </p>
+                <% for(ArticleBean comment : comments) {%>
+	                <article class="comment">
+	                    <span>
+	                        <span><%= comment.getNick() %></span>
+	                        <span><%= comment.getRdate().substring(2,10) %></span>
+	                    </span>
+	                    <textarea name="comment" readonly><%=comment.getContent() %></textarea>
+	                    <% 	if(mb.getUid().equals(comment.getUid())) {%>
+		                    <div>
+		                        <a href="#">삭제</a>
+		                        <a href="#">수정</a>
+		                    </div>
+	                    <% } %>
+	                </article>
+                <% } %>
+                
+                <% if(comments.size() == 0) { %>
+	                <p class="empty">
+	                    등록된 댓글이 없습니다.
+	                </p>
+                <% } %>
             </section>
 
             <!-- 댓글입력폼 -->
             <section class="commentForm">
                 <h3>댓글쓰기</h3>
-                <form action="#">
-                    <textarea name="comment"></textarea>
+                <form action="/JBoard1/proc/comment.jsp" method="post"> <!-- Restfull 통신 post, get, put, delete 모바일에서 많이 쓰임-->
+                	<input type="hidden" name="parent" value="<%=article.getSeq()%>">
+                	<input type="hidden" name="uid" value="<%= mb.getUid() %>">
+                    <textarea name="comment" required></textarea> <!-- required를 명시해주면 필수 입력 데이터로 인식해서 데이터가 없으면 폼 전송이 안됨(유효성 검사) -->
                     <div>
                         <a href="/JBoard1/list.jsp" class="btnCancel">취소</a>
                         <input type="submit" class="btnWrite" value="작성완료"/>
