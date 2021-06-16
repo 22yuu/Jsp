@@ -345,4 +345,19 @@ public class ArticleDao {
 	
 	public void deleteArticle() {}
 	
+	public void deleteComment(String seq) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_COMMENT);
+			psmt.setString(1, seq);
+			
+			psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

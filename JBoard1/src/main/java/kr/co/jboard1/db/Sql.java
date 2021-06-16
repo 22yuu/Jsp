@@ -75,4 +75,6 @@ public class Sql {
 	public static final String UPDATE_FILE_DOWNLOAD = "UPDATE `JBOARD_FILE` "
 														+ "SET `download` = `download` + 1 "
 														+ "WHERE `seq`=?";
+	
+	public static final String DELETE_COMMENT = "DELETE FROM `JBOARD_ARTICLE` WHERE `seq`=?";
 }

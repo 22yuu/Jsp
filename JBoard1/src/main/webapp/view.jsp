@@ -82,8 +82,8 @@
 	                    <textarea name="comment" readonly><%=comment.getContent() %></textarea>
 	                    <% 	if(mb.getUid().equals(comment.getUid())) {%>
 		                    <div>
-		                        <a href="#">삭제</a>
-		                        <a href="#">수정</a>
+		                        <a href="/JBoard1/proc/commentDelete.jsp?seq=<%= comment.getSeq()%>&parent=<%=comment.getParent()%>">삭제</a>
+		                        <a href="/JBoard1/proc/commentEdit.jsp?seq=<%= comment.getSeq()%>">수정</a>
 		                    </div>
 	                    <% } %>
 	                </article>
