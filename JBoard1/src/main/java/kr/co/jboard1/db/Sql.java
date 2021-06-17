@@ -68,8 +68,17 @@ public class Sql {
 												+ "`newName`=?,"
 												+ "`rdate`=NOW();";
 
+	public static final String UPDATE_ARTICLE = "UPDATE `JBOARD_ARTICLE` SET "
+													+ "`title`=?, "
+													+ "`content`=? "
+													+ "WHERE `seq`=?;";
+	
 	public static final String UPDATE_ARTICLE_HIT = "UPDATE `JBOARD_ARTICLE` "
 												+ "SET `hit` = `hit` + 1 "
+												+ "WHERE `seq`=?";
+	
+	public static final String UPDATE_COMMENT = "UPDATE `JBOADR_ARTICLE` "
+												+ "SET `content` =?,"
 												+ "WHERE `seq`=?";
 	
 	public static final String UPDATE_ARTICLE_COMMENT_COUNT_UP = "UPDATE `JBOARD_ARTICLE` "
@@ -77,12 +86,14 @@ public class Sql {
 																	+ "WHERE `seq`=?";
 	
 	public static final String UPDATE_ARTICLE_COMMENT_COUNT_DOWN = "UPDATE `JBOARD_ARTICLE` "
-			+ "SET `comment` = `comment` - 1 "
-			+ "WHERE `seq`=?";
+																	+ "SET `comment` = `comment` - 1 "
+																	+ "WHERE `seq`=?";
 	
 	public static final String UPDATE_FILE_DOWNLOAD = "UPDATE `JBOARD_FILE` "
 														+ "SET `download` = `download` + 1 "
 														+ "WHERE `seq`=?";
+	
+	public static final String DELETE_ARTICLE =  "DELETE FROM `JBOARD_ARTICLE` WHERE `seq`=?"; 
 	
 	public static final String DELETE_COMMENT = "DELETE FROM `JBOARD_ARTICLE` WHERE `seq`=?";
 }

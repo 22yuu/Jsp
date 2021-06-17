@@ -300,7 +300,42 @@ public class ArticleDao {
 		return fb;
 	}
 	
-	public void updateArticle() {}
+	public void updateArticle(String title, String content, String seq) {
+		
+		try {
+			
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE);
+			psmt.setString(1, title);
+			psmt.setString(2, content);
+			psmt.setString(3, seq);
+			
+			psmt.executeUpdate();
+			
+			conn.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateComment(String content) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_COMMENT);
+			psmt.setString(1, content);
+			
+			psmt.executeUpdate();
+			
+			conn.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void updateArticleHit(String seq) {
 		try {
@@ -383,7 +418,20 @@ public class ArticleDao {
 		}
 	}
 	
-	public void deleteArticle() {}
+	public void deleteArticle(String seq) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_ARTICLE);
+			psmt.setString(1, seq);
+			
+			psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void deleteComment(String seq) {
 		

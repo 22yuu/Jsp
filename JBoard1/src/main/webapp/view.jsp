@@ -64,11 +64,17 @@
                     </td>
                 </tr>
             </table>
+            <% 	if(mb.getUid().equals(article.getUid())) {%>
+		                    <div>
+		                        <a href="/JBoard1/proc/articleDelete.jsp?seq=<%= article.getSeq()%>" class="btnDelete">삭제</a>
+		                        <a href="/JBoard1/modify.jsp?seq=<%= article.getSeq() %>" class="btnModify">수정</a>
+		                        <a href="/JBoard1/list.jsp" class="btnList">목록</a>
+		                    </div>
+            <% } else {%>
             <div>
-                <a href="#" class="btnDelete">삭제</a>
-                <a href="/JBoard1/modify.jsp" class="btnModify">수정</a>
                 <a href="/JBoard1/list.jsp" class="btnList">목록</a>
             </div>  
+            <% } %>
             
             <!-- 댓글리스트 -->
             <section class="commentList">
@@ -83,7 +89,7 @@
 	                    <% 	if(mb.getUid().equals(comment.getUid())) {%>
 		                    <div>
 		                        <a href="/JBoard1/proc/commentDelete.jsp?seq=<%= comment.getSeq()%>&parent=<%=comment.getParent()%>">삭제</a>
-		                        <a href="/JBoard1/proc/commentEdit.jsp?seq=<%= comment.getSeq()%>">수정</a>
+		                        <a href="#">수정</a>
 		                    </div>
 	                    <% } %>
 	                </article>
