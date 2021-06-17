@@ -38,7 +38,74 @@
     <meta charset="UTF-8">
     <title>글보기</title>
     <link rel="stylesheet" href="/JBoard1/css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <script>
+    	$(function(){
+   			$('.btnCommentDel').click(function() {
+   				
+   				var result = confirm('정말 삭제 하시겠습니까?');
+   				
+   				if(confirm("정말 삭제 하시겠습니까?")) {
+   					return true;
+   				} else {
+   					return false;
+   				}
+   			});
+   			
+   			$('.btnCommentModify').click(function(e) {
+   				
+   				e.preventDefault(); // a 링크에 #을 주면 페이지 맨 위로 이동 그것을 방지하기 위한 메서드
+   				
+   				var btnThis =$(this);
+   				var mode = $(this).text();
+   				var textarea = $(this).parent().prev();
+   				
+   				if( mode == '수정') {
+   					// 수정모드
+   					
+   					btnThis.text("수정완료");
+   	   				textarea.attr('readonly', false).focus();
+   	   				textarea.css('outline','1px gray solid');
+   	   				// onfocus="this.value = this.value;"
+
+   				} else {
+   					// 수정완료 모드
+   					var content = textarea.val();
+   	   				var seq = textarea.attr('data-seq');
+   	   				var parent = textarea.attr('data-parent');
+   	   				
+   					var jsonData = {'content':content,
+   									'seq': seq,
+   									'paernt': parent,
+   					};
+   					
+   					$.ajax({
+   						url: '/JBoard1/proc/commentUpdate.jsp',
+   						type: 'post',
+   						data: jsonData,
+   						dataType: 'json',
+   						success: function(data){
+   							
+   							if(data.result == 1){
+   								textarea.attr('readonly', true);
+   								textarea.css('outline','none');
+   								btnThis.text(수정);
+   								
+   								alert('수정 완료 했습니다.');
+   							}
+   							
+   						}
+   					});
+   					
+   					
+   				}
+   				//return false; // true를 한다는 것은 a 태그 링크를 이동을 위한 페이지 요청을 하겠다는 것. 하지만 ajax로 할 것이기 때문에 false
+   			});
+    	});
+    </script>
 </head>
+
 <body>
     <div id="wrapper">
         <section id="board" class="view">
@@ -85,11 +152,11 @@
 	                        <span><%= comment.getNick() %></span>
 	                        <span><%= comment.getRdate().substring(2,10) %></span>
 	                    </span>
-	                    <textarea name="comment" readonly><%=comment.getContent() %></textarea>
+	                    <textarea name="comment" data-seq="<%= comment.getSeq() %>" data-parent="<%=comment.getParent() %>" readonly ><%=comment.getContent() %></textarea>
 	                    <% 	if(mb.getUid().equals(comment.getUid())) {%>
 		                    <div>
-		                        <a href="/JBoard1/proc/commentDelete.jsp?seq=<%= comment.getSeq()%>&parent=<%=comment.getParent()%>">삭제</a>
-		                        <a href="#">수정</a>
+		                        <a href="/JBoard1/proc/commentDelete.jsp?seq=<%= comment.getSeq()%>&parent=<%=comment.getParent()%>" class="btnCommentDel">삭제</a>
+		                        <a href="#" class="btnCommentModify">수정</a>
 		                    </div>
 	                    <% } %>
 	                </article>

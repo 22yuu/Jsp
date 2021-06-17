@@ -311,7 +311,7 @@ public class ArticleDao {
 			psmt.setString(2, content);
 			psmt.setString(3, seq);
 			
-			psmt.executeUpdate();
+			psmt.executeUpdate(); // 업데이트 성공 1 리턴 실패 0
 			
 			conn.close();
 			
@@ -320,21 +320,25 @@ public class ArticleDao {
 		}
 	}
 	
-	public void updateComment(String content) {
+	public int updateComment(String content, String seq) {
 		
+		int result = 0;
 		try {
 			Connection conn = DBConfig.getInstance().getConnection();
 			
 			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_COMMENT);
 			psmt.setString(1, content);
+			psmt.setString(2, seq);
 			
 			psmt.executeUpdate();
+			result = psmt.executeUpdate(); // 업데이트 성공 1 리턴 실패 0
 			
 			conn.close();
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		return result;
 	}
 	
 	public void updateArticleHit(String seq) {
