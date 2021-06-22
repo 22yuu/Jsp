@@ -2,18 +2,18 @@
 <%@ include file="../_header.jsp" %>
 
         <div id="sub">
-            <div><img src="/Farmstory1/img/sub_top_tit2.png" alt="MARKET"></div>
-            <section class="cate2">
+            <div><img src="/Farmstory1/img/sub_top_tit4.png" alt="MARKET"></div>
+            <section class="cate4">
                 <aside>
-                    <img src="/Farmstory1/img/sub_aside_cate2_tit.png" alt="장보기"/>
+                    <img src="/Farmstory1/img/sub_aside_cate4_tit.png" alt="이벤트"/>
 
                     <ul class="lnb">
-                        <li class="on"><a href="./market.jsp">장보기</a></li>
+                        <li class="on"><a href="./event.jsp">장보기</a></li>
                     </ul>
                 </aside>
                 <article>
                     <nav>
-                        <img src="/Farmstory1/img/sub_nav_tit_cate2_tit1.png" alt="장보기"/>
+                        <img src="/Farmstory1/img/sub_nav_tit_cate4_tit1.png" alt="이벤트"/>
                         <p>
                             HOME > 장보기 > <em>장보기</em>
                         </p>
