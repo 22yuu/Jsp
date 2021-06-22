@@ -1,5 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_header.jsp" %>
+<%
+	request.setCharacterEncoding("utf-8");
+	String group = request.getParameter("group");
+	String cate = request.getParameter("cate");
+	String path = "./_aside_"+group+".jsp";
+%>
+
+<jsp:include page="<%=path%>"/>
 <section id="board" class="modify">
     <h3>글수정</h3>
     <article>
