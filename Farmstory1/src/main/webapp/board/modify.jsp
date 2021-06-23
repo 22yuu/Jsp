@@ -2,6 +2,7 @@
 <%@ include file="../_header.jsp" %>
 <%
 	request.setCharacterEncoding("utf-8");
+	String seq   = request.getParameter("seq");
 	String group = request.getParameter("group");
 	String cate = request.getParameter("cate");
 	String path = "./_aside_"+group+".jsp";
@@ -11,7 +12,10 @@
 <section id="board" class="modify">
     <h3>글수정</h3>
     <article>
-        <form action="#">
+        <form action="/Farmstory1/board/proc/modify.jsp">
+        	<input type="hidden" name="seq" value="<%=seq%>">
+        	<input type="hidden" name="group" value="<%=group%>">
+        	<input type="hidden" name="cate" value="<%=cate%>">
             <table>
                 <tr>
                     <td>제목</td>
@@ -29,7 +33,7 @@
                 </tr>
             </table>
             <div>
-                <a href="./list.jsp" class="btnCancel">취소</a>
+                <a href="/Farmstory1/board/list.jsp?group=<%=group%>&cate=<%=cate%>" class="btnCancel">취소</a>
                 <input type="submit"  class="btnWrite" value="수정완료">
             </div>
         </form>

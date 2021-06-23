@@ -1,4 +1,4 @@
-package kr.co.jboard1.dao;
+package kr.co.farmstory.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.co.jboard1.bean.ArticleBean;
-import kr.co.jboard1.bean.FileBean;
-import kr.co.jboard1.db.DBConfig;
-import kr.co.jboard1.db.Sql;
+import kr.co.farmstory.bean.ArticleBean;
+import kr.co.farmstory.bean.FileBean;
+import kr.co.farmstory.db.DBConfig;
+import kr.co.farmstory.db.Sql;
 
 // DAO(Database Access Object) 클래스
 public class ArticleDao {
@@ -70,7 +70,7 @@ public class ArticleDao {
 	
 	
 	
-	public int selectCountArticle() {
+	public int selectCountArticle(String cate) {
 
 		int total = 0;
 		
@@ -80,7 +80,7 @@ public class ArticleDao {
 			
 			// 3단계
 			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_COUNT_ARTICLES);
-			
+			psmt.setString(1, cate);
 			// 4단계
 			ResultSet rs = psmt.executeQuery();
 			
@@ -184,7 +184,7 @@ public class ArticleDao {
 		return article;
 	}
 	
-	public List<ArticleBean> selectArticles(int start) {
+	public List<ArticleBean> selectArticles(int start, String cate) {
 		List<ArticleBean> articles = new ArrayList<>();
 		
 		try {
@@ -193,7 +193,9 @@ public class ArticleDao {
 			
 			// 3단계
 			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_ARTICLES);
-			psmt.setInt(1, start);
+			psmt.setString(1, cate);
+			psmt.setInt(2, start);
+			
 			
 			// 4단계
 			ResultSet rs = psmt.executeQuery();

@@ -1,17 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../_header.jsp" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	String group = request.getParameter("group");
 	String cate = request.getParameter("cate");
 	String path = "./_aside_"+group+".jsp";
 %>
-
 <jsp:include page="<%=path%>"/>
 <section id="board" class="write">
     <h3>글쓰기</h3>
     <article>
-        <form action="#">
+        <form action="/Farmstory1/board/proc/write.jsp" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="cate" value=<%=cate%>>
+            <input type="hidden" name="group" value=<%=group%>>
             <table>
                 <tr>
                     <td>제목</td>
@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td>첨부</td>
-                    <td><input type="file" name="file"/></td>
+                    <td><input type="file" name="fname"/></td>
                 </tr>
             </table>
             <div>
