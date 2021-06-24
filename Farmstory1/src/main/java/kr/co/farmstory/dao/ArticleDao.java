@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kr.co.farmstory.bean.ArticleBean;
 import kr.co.farmstory.bean.FileBean;
@@ -133,6 +135,57 @@ public class ArticleDao {
 				e.printStackTrace();
 			}
 
+	}
+	
+	public List<ArticleBean> selectNotice() {
+		
+		List<ArticleBean> list = new ArrayList<>();
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_NOTICE);
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				
+				ArticleBean article = new ArticleBean();
+				article.setSeq(rs.getInt(1));
+				article.setCate(rs.getString(4));
+				article.setTitle(rs.getString(5));
+				article.setRdate(rs.getString(11).substring(2, 10));
+				
+				list.add(article);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<ArticleBean> selectLatests() {
+		
+		List<ArticleBean> latests = new ArrayList<>();
+		 
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_LATESTS);
+			ResultSet rs = psmt.executeQuery();
+
+			while(rs.next()) {
+				
+				ArticleBean article = new ArticleBean();
+				article.setSeq(rs.getInt(1));
+				article.setCate(rs.getString(4));
+				article.setTitle(rs.getString(5));
+				article.setRdate(rs.getString(11).substring(2, 10));
+				
+				latests.add(article);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return latests;
 	}
 	
 	public ArticleBean selectArticle(String seq) {
