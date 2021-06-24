@@ -99,25 +99,22 @@
                         <div id="tabs-1">
                             <ul>
                             	<% for(int i =0; i<3; i++) { %>
-                            	
+                            		<li><a href="/Farmstory1/board/view.jsp?group=community&cate=<%=notices.get(i).getCate()%>&seq=<%=notices.get(i).getSeq() %>"><%= notices.get(i).getTitle() %></a></li>	
                             	<% } %>
-                                <li>· 홈페이지 오픈 기념 이벤트를 진행합니다.</li>
-                                <li>· 홈페이지 오픈 기념 이벤트를 진행합니다.</li>
-                                <li>· 홈페이지 오픈 기념 이벤트를 진행합니다.</li>
                             </ul>
                         </div>
                         <div id="tabs-2">
-                            <ul>
-                                <li>· 홈페이지 이용 관련 불편사항을 들려주세요.</li>
-                                <li>· 홈페이지 이용 관련 불편사항을 들려주세요.</li>
-                                <li>· 홈페이지 이용 관련 불편사항을 들려주세요.</li>
+							<ul>
+                            	<% for(int i =3; i<6; i++) { %>
+                            		<li><a href="/Farmstory1/board/view.jsp?group=community&cate=<%=notices.get(i).getCate()%>&seq=<%=notices.get(i).getSeq() %>"><%= notices.get(i).getTitle() %></a></li>	
+                            	<% } %>
                             </ul>
                         </div>
                         <div id="tabs-3">
                             <ul>
-                                <li>· 홈페이지를 오픈하였습니다.</li>
-                                <li>· 홈페이지를 오픈하였습니다.</li>
-                                <li>· 홈페이지를 오픈하였습니다.</li>
+                                <% for(int i =6; i<9; i++) { %>
+                            		<li><a href="/Farmstory1/board/view.jsp?group=community&cate=<%=notices.get(i).getCate()%>&seq=<%=notices.get(i).getSeq() %>"><%= notices.get(i).getTitle() %></a></li>	
+                            	<% } %>
                             </ul>
                         </div>
                     </div>
