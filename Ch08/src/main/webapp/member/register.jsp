@@ -15,7 +15,7 @@
 	<a href="/Ch08/member/list.do">직원목록</a>
 	
 	<h4>직원등록</h4>
-	<form action="./proc/insertProc.jsp">
+	<form action="/Ch08/member/register.do" method="post">
 		<table border="1">
 			<tr>
 				<td>아이디</td>
