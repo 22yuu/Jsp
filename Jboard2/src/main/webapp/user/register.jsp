@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="/Jboard2/css/style.css"/>
 </head>
 <body>
     <div id="wrapper">
@@ -79,7 +79,7 @@
                 </table>
 
                 <div>
-                    <a href="./login.html" class="btnCancel">취소</a>
+                    <a href="/Jboard2/user/login.jsp" class="btnCancel">취소</a>
                     <input type="submit"   class="btnJoin" value="회원가입"/>
                 </div>
 
