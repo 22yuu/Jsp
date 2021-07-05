@@ -2,6 +2,7 @@ package kr.co.jboard2.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -85,10 +86,16 @@ public class MainController extends HttpServlet{
 		// Service 객체 실행 후 View 리턴 받기
 		String result = instance.requestProc(req, resp);
 		
+		
+		
 		if(result.startsWith("redirect:")) {
 			// redirect
 			String redirectUrl = result.substring(9);
 			resp.sendRedirect(redirectUrl);
+		} else if(result.startsWith("json:")) {
+			// Json 출력
+			PrintWriter out = resp.getWriter();
+			out.print(result.substring(5));
 		} else {
 			// View 포워드
 			RequestDispatcher dispatcher = req.getRequestDispatcher(result);

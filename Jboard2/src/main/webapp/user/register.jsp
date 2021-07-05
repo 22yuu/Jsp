@@ -5,11 +5,21 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="/Jboard2/css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/Jboard2/js/checkUid.js"></script>
+    <script defer type="text/javascript" src="/Jboard2/js/checkNick.js"></script>
+    <script defer type="text/javascript" src="/Jboard2/js/checkHp.js"></script>
+    <script defer type="text/javascript" src="/Jboard2/js/checkEmail.js"></script>
+    <script defer type="text/javascript" src="/Jboard2/js/checkPass.js"></script>
+    <script defer type="text/javascript" src="/Jboard2/js/checkName.js"></script>
+    <script defer type="text/javascript" src="/Jboard2/js/zipcode.js"></script>
+    <script defer type="text/javascript" src="/Jboard2/js/validation.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
     <div id="wrapper">
         <section id="user" class="register">
-            <form action="#" method="POST">
+            <form action="/Jboard2/user/register.do" method="POST">
                 <table border="1">
                     <caption>사이트 이용정보 입력</caption>
                     <tr>
@@ -38,7 +48,8 @@
                     <tr>
                         <td>이름</td>
                         <td>
-                            <input type="text" name="name" placeholder="이름 입력"/>                            
+                            <input type="text" name="name" placeholder="이름 입력"/>  
+                            <span class="resultName"></span>                            
                         </td>
                     </tr>
                     <tr>

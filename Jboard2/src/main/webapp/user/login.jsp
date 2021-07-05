@@ -9,7 +9,7 @@
 <body>
     <div id="wrapper">
         <section id="user" class="login">
-            <form action="/Jboard2/list.html">
+            <form action="/Jboard2/user/login.do" method="post">
                 <table border="0">
                     <tr>
                         <td><img src="/Jboard2/img/login_ico_id.png" alt="아이디"/></td>
@@ -28,7 +28,7 @@
                 <p>
                     아직 회원이 아니시면 회원으로 가입하세요.
                 </p>
-                <a href="/Jboard2/user/terms.jsp">회원가입</a>
+                <a href="/Jboard2/user/terms.do">회원가입</a>
             </div>
 
         </section>
