@@ -3,8 +3,10 @@ package kr.co.jboard2.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import kr.co.jboard2.db.DBConfig;
 import kr.co.jboard2.db.Sql;
@@ -97,8 +99,11 @@ public class ArticleDao {
 		return total;
 	}
 	
-	public void insertArticle(ArticleVo vo) {
+	
+	
+	public int insertArticle(ArticleVo vo) {
 		
+		int seq = 0;
 		try {
 			
 			// 1,2 단계
@@ -111,12 +116,16 @@ public class ArticleDao {
 			psmt.setString(5, vo.getRegip());
 			
 			psmt.executeUpdate();
+			
+			
 			conn.close();
-				
+			
+			
+			
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-
+		return selectMaxSeq();
 	}
 	
 	public void insertComment(ArticleVo comment) {
@@ -151,6 +160,44 @@ public class ArticleDao {
 				e.printStackTrace();
 			}
 
+	}
+	
+	public void insertFile(int seq, String fname, String newName) {
+		
+		try {
+			
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_FILE);
+			psmt.setInt(1, seq);
+			psmt.setString(2, fname);
+			psmt.setString(3, newName);
+			psmt.executeUpdate();
+			
+			conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int selectMaxSeq() {
+		
+		int seq = 0;
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(Sql.SELECT_MAX_SEQ);
+			
+			if(rs.next()) {
+				
+				seq = rs.getInt(0);
+				
+			}
+			conn.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return seq;
 	}
 	
 	public ArticleVo selectArticle(String seq) {
