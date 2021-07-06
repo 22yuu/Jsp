@@ -97,7 +97,27 @@ public class ArticleDao {
 		return total;
 	}
 	
-	public void insertArticle() {}
+	public void insertArticle(ArticleVo vo) {
+		
+		try {
+			
+			// 1,2 단계
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt =  conn.prepareStatement(Sql.INSERT_ARTICLE);
+			psmt.setString(1, vo.getTitle());
+			psmt.setString(2, vo.getContent());
+			psmt.setInt(3, vo.getFile());
+			psmt.setString(4, vo.getUid());
+			psmt.setString(5, vo.getRegip());
+			
+			psmt.executeUpdate();
+			conn.close();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+
+	}
 	
 	public void insertComment(ArticleVo comment) {
 		
