@@ -4,7 +4,10 @@
 <section id="board" class="write">
 	<h3>글쓰기</h3>
 	<article>
-		<form action="#">
+		<form action="/Farmstory2/board/write.do" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="group" value="${group}"/>
+			<input type="hidden" name="cate" value="${cate}"/>
+			<input type="hidden" name="uid" value="${sessionScope.sessMember.uid}"/>
 			<table>
 				<tr>
 					<td>제목</td>
@@ -16,7 +19,7 @@
 				</tr>
 				<tr>
 					<td>첨부</td>
-					<td><input type="file" name="file" /></td>
+					<td><input type="file" name="fname" /></td>
 				</tr>
 			</table>
 			<div>
