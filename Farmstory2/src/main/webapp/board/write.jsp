@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_header.jsp"%>
+<jsp:include page="./_aside_${group}.jsp"/>
 <section id="board" class="write">
 	<h3>글쓰기</h3>
 	<article>
@@ -19,7 +20,7 @@
 				</tr>
 			</table>
 			<div>
-				<a href="/Farmstory2/board/list.do" class="btnCancel">취소</a> <input
+				<a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}" class="btnCancel">취소</a> <input
 					type="submit" class="btnWrite" value="작성완료">
 			</div>
 		</form>

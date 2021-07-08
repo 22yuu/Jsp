@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
  <%@ include file="../_header.jsp" %>
-    <div id="wrapper">
+ <jsp:include page="./_aside_${group}.jsp"/>
         <section id="board" class="view">
             <h3>글보기</h3>
             <table>
@@ -24,8 +24,8 @@
             </table>
             <div>
                 <a href="#" class="btnDelete">삭제</a>
-                <a href="/Farmstory2/board/modify.do" class="btnModify">수정</a>
-                <a href="/Farmstory2/board/list.do" class="btnList">목록</a>
+                <a href="/Farmstory2/board/modify.do?group=${group}&cate=${cate}" class="btnModify">수정</a>
+                <a href="/Farmstory2/board/list.do?group=${group}&cate=${cate}" class="btnList">목록</a>
             </div>  
             
             <!-- 댓글리스트 -->
@@ -58,6 +58,10 @@
                     </div>
                 </form>
             </section>
-
         </section>
+<!-- 내용 끝 -->
+</article>
+</section>
+</div>
+ 
  <%@ include file="../_footer.jsp" %>

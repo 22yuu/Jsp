@@ -11,7 +11,6 @@
 			<li class="${cate eq 'grow'? 'on' : 'off' }"><a href="/Farmstory2/board/list.do?group=croptalk&cate=grow">텃밭가꾸기</a></li>
 			<li class="${cate eq 'school'? 'on' : 'off' }"><a href="/Farmstory2/board/list.do?group=croptalk&cate=school">귀농학교</a></li>
 		</ul>
-
 	</aside>
 	<article>
 		<nav>
